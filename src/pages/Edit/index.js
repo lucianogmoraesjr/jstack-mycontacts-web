@@ -1,5 +1,7 @@
+import { PageHeader } from '../../components/PageHeader';
+
 export function Edit() {
   return (
-    <h1>Edit</h1>
+    <PageHeader title="Editar Luciano Moraes" />
   );
 }
