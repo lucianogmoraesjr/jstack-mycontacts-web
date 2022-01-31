@@ -2,9 +2,9 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyles from '../../assets/styles/global';
 import commonTheme from '../../assets/styles/themes/common';
+import { Routes } from '../../Routes';
 
 import { Header } from '../Header';
-import { ContactsList } from '../ContactsList';
 
 import { Container } from './styles';
 
@@ -14,7 +14,7 @@ function App() {
       <GlobalStyles />
       <Container>
         <Header />
-        <ContactsList />
+        <Routes />
       </Container>
     </ThemeProvider>
   );
