@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
@@ -15,7 +17,7 @@ export function Home() {
 
       <Header>
         <strong>3 contatos</strong>
-        <a href="/">Novo contato</a>
+        <Link to="/new-contact">Novo contato</Link>
       </Header>
 
       <ListContainer>
@@ -37,51 +39,9 @@ export function Home() {
           </div>
 
           <div className="actions">
-            <a href="/">
+            <Link to="/edit/123">
               <img src={edit} alt="Editar" />
-            </a>
-
-            <button type="button">
-              <img src={trash} alt="Excluir" />
-            </button>
-          </div>
-        </Card>
-
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Luciano Moraes</strong>
-              <small>instagram</small>
-            </div>
-            <span>luciano@mail.com.br</span>
-            <span>(51) 99999-9999</span>
-          </div>
-
-          <div className="actions">
-            <a href="/">
-              <img src={edit} alt="Editar" />
-            </a>
-
-            <button type="button">
-              <img src={trash} alt="Excluir" />
-            </button>
-          </div>
-        </Card>
-
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Luciano Moraes</strong>
-              <small>instagram</small>
-            </div>
-            <span>luciano@mail.com.br</span>
-            <span>(51) 99999-9999</span>
-          </div>
-
-          <div className="actions">
-            <a href="/">
-              <img src={edit} alt="Editar" />
-            </a>
+            </Link>
 
             <button type="button">
               <img src={trash} alt="Excluir" />

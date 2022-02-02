@@ -59,7 +59,7 @@ export const ListContainer = styled.div`
     button {
       background: transparent;
       border: none;
-      /* display: flex; */
+      display: flex;
       align-items: center;
 
       span {

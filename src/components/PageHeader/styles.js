@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  a {
-    text-decoration: none;
+  margin-bottom: 24px;
 
+  a {
+    width: fit-content;
     display: flex;
     align-items: center;
+    text-decoration: none;
+    margin-bottom: 8px;
 
     img {
       margin-right: 8px;
-      margin-bottom: 8px;
       transform: rotate(-90deg);
     }
 
