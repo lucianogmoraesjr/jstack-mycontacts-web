@@ -9,6 +9,7 @@ export default styled.input`
   border-radius: 4px;
   border: 2px solid #fff;
   outline: none;
+  appearance: none;
 
   font-size: 16px;
 
