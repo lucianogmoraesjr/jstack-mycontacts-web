@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // import { Modal } from '../../components/Modal';
-// import { Loader } from '../../components/Loader';
+import { Loader } from '../../components/Loader';
+
+import { delay } from '../../utils/delay';
 
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
@@ -16,15 +18,27 @@ export function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderby] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const filteredContacts = useMemo(() => contacts.filter((contact) => (
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   )), [contacts, searchTerm]);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
-      .then((response) => response.json())
-      .then((data) => setContacts(data));
+      .then(async (response) => {
+        await delay(3000);
+        const data = await response.json();
+        setContacts(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [orderBy]);
 
   function handleToggleOrderBy() {
@@ -38,7 +52,7 @@ export function Home() {
   return (
     <Container>
       {/* <Modal danger /> */}
-      {/* <Loader /> */}
+      <Loader isLoading={isLoading} />
 
       <InputSearchContainer>
         <input
