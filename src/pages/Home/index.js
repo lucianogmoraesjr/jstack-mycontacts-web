@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 // import { Modal } from '../../components/Modal';
 import { Loader } from '../../components/Loader';
-
-import { delay } from '../../utils/delay';
+import ContactsService from '../../services/ContactsService';
 
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
@@ -25,20 +24,21 @@ export function Home() {
   )), [contacts, searchTerm]);
 
   useEffect(() => {
-    setIsLoading(true);
+    async function fetchData() {
+      try {
+        setIsLoading(true);
 
-    fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
-      .then(async (response) => {
-        await delay(3000);
-        const data = await response.json();
+        const data = await ContactsService.listContacts(orderBy);
+
         setContacts(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
+      } catch (error) {
+        console.log('Error', error);
+      } finally {
         setIsLoading(false);
-      });
+      }
+    }
+
+    fetchData();
   }, [orderBy]);
 
   function handleToggleOrderBy() {
