@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
+import CategoriesService from '../../services/CategoriesService';
 
 import isEmailValid from '../../utils/isEmailValid';
 import { formatPhone } from '../../utils/formatPhone';
@@ -13,10 +15,11 @@ import { InputGroup } from '../InputGroup';
 import { ButtonContainer } from './styles';
 
 export function ContactForm({ buttonLabel }) {
+  const [categories, setCategories] = useState([]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('');
 
   const {
     errors,
@@ -24,6 +27,20 @@ export function ContactForm({ buttonLabel }) {
     removeError,
     getErrorMessageByFieldName,
   } = useErrors();
+
+  const isFormValid = (name && errors.length === 0);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const categoriesList = await CategoriesService.listCategories();
+
+        setCategories(categoriesList);
+      } catch {}
+    }
+
+    fetchCategories();
+  }, []);
 
   function handleNameChange(event) {
     setName(event.target.value);
@@ -53,11 +70,9 @@ export function ContactForm({ buttonLabel }) {
     event.preventDefault();
 
     console.log({
-      name, email, phone, category,
+      name, email, phone, categoryId,
     });
   }
-
-  const isFormValid = (name && errors.length === 0);
 
   return (
     <form onSubmit={handleSubmit} noValidate>
@@ -93,12 +108,14 @@ export function ContactForm({ buttonLabel }) {
 
       <InputGroup>
         <Select
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
+          value={categoryId}
+          onChange={(event) => setCategoryId(event.target.value)}
         >
-          <option value="" disabled>Categoria</option>
-          <option value="instagram">Instagram</option>
-          <option value="discord">Discord</option>
+          <option value="">Sem categoria</option>
+
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>{category.name}</option>
+          ))}
         </Select>
       </InputGroup>
 

@@ -40,7 +40,7 @@ export function Home() {
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   )), [contacts, searchTerm]);
 
-  const fetchData = useCallback(async () => {
+  const fetchContacts = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -56,8 +56,8 @@ export function Home() {
   }, [orderBy]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchContacts();
+  }, [fetchContacts]);
 
   function handleToggleOrderBy() {
     setOrderby((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
@@ -68,7 +68,7 @@ export function Home() {
   }
 
   function handleTryAgain() {
-    fetchData();
+    fetchContacts();
   }
 
   return (
