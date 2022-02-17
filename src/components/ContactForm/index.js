@@ -87,6 +87,7 @@ export function ContactForm({ buttonLabel }) {
           placeholder="Telefone"
           value={formatPhone(phone)}
           onChange={handlePhoneChange}
+          maxLength="15"
         />
       </InputGroup>
 
